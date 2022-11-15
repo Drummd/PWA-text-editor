@@ -1,9 +1,11 @@
-const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
+const { offlineFallback, warmStrategyCache } = require('workbox-recipes'); //find something to do with offlineFallback -- ony variable not used
 const { CacheFirst } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
 const { ExpirationPlugin } = require('workbox-expiration');
 const { precacheAndRoute } = require('workbox-precaching/precacheAndRoute');
+
+
 
 precacheAndRoute(self.__WB_MANIFEST);
 
@@ -23,6 +25,12 @@ warmStrategyCache({
   urls: ['/index.html', '/'],
   strategy: pageCache,
 });
+
+offlineFallback({
+  urls: ['/index.html', '/'],
+  strategy: pageCache,
+});
+
 
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
